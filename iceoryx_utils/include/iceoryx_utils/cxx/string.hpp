@@ -197,6 +197,12 @@ class string
     /// @return true if the assignment succeeds, otherwise false
     bool unsafe_assign(const char* const str) noexcept;
 
+    // needed for stringref, experimental, unsafe assign could be removed if used
+    string& assign(const char* const str) noexcept
+    {
+        unsafe_assign(str);
+    }
+
     /// @brief assigns a std::string to string. The assignment fails if the std::string size is greater than the string
     /// capacity.
     ///
