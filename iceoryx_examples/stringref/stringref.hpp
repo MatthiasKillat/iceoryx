@@ -83,6 +83,12 @@ class stringref
         return iox::cxx::string<Capacity>(iox::cxx::TruncateToCapacity, c_str());
     }
 
+    // maybe too dangerous since it easily allows to generate std::strings by "accident" (with e.g. auto)
+    std::string to_string() const
+    {
+        return std::string(c_str());
+    }
+
   private:
     // needed for general compatibility with e.g. std::string and
     // other interfaces implementing this concept

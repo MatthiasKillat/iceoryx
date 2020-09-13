@@ -2,6 +2,7 @@
 #include <string>
 
 #include "iceoryx_utils/cxx/string.hpp"
+#include "storage.hpp"
 #include "stringref.hpp"
 
 using iox::cxx::string;
@@ -43,7 +44,7 @@ int main()
     string<10> s1("cxx");
     std::string s2("std");
     string<39> s3("mat");
-    stringref ref(s1);
+
     std::string s4("cxx");
     std::cout << s1 << std::endl;
     std::cout << s2 << std::endl;
@@ -73,4 +74,15 @@ int main()
 
     modify(s1);
     modify(s2);
+
+    stringref ref(s1);
+    auto stdStr = ref.to_string();
+
+    storage<32> buffer;
+    auto ptr1 = buffer.allocate<string<10>>();
+    ptr1 = buffer.allocate<string<10>>();
+    buffer.deallocate();
+    auto ptr2 = buffer.allocate<string<16>>();
+    buffer.deallocate();
+    auto ptr3 = buffer.allocate<string<32>>();
 }
